@@ -18,10 +18,15 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @auth
         <a class="navbar-brand" href="{{ route('recipes.index') }}">Recipe Manager User Dashboard</a>
+        @else
+        <a class="navbar-brand" href="{{ url('/') }}">Recipe Manager</a>
+        @endauth
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        @auth
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -29,7 +34,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('myRecipe') }}">My Recipes</a>
-                </li> 
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
                 </li>
@@ -38,6 +43,7 @@
                 </li>
             </ul>
         </div>
+        @endauth
     </nav>
 
     <div class="container mt-4">

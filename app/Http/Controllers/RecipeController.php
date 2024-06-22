@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Recipe;
 use App\Models\User;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
     public function myRecipe(Request $request)
     {
-        $user_id=$request->header('id');
+        $user_id=Auth::user()->id;
         $myRecipes = Recipe::where('user_id','=',$user_id)->orderBy('created_at', 'desc')->simplePaginate(6);
         return view('userHome',compact('myRecipes'));
     }
@@ -33,7 +34,7 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
-        $user_id=$request->header('id');
+        $user_id=Auth::user()->id;
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -57,7 +58,7 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $recipe = Recipe::findOrFail($id);
-        return view('recipes.edit', compact('recipe'));
+        return view('pages.recipes.edit', compact('recipe'));
     }
 
     public function update(Request $request, $id)

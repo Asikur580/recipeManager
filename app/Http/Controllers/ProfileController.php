@@ -15,14 +15,14 @@ class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        $user_id=$request->header('id');
+        $user_id=Auth::user()->id;
         $user = User::findOrFail($user_id);
-        //dd($user);
+        
         return view('pages.profile.show', compact('user'));
     }
     public function edit(Request $request)
     {
-        $user_id=$request->header('id');
+        $user_id=Auth::user()->id;
         $user = User::findOrFail($user_id);
         //dd($user);
         return view('pages.profile.edit', compact('user'));
@@ -33,7 +33,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $user_id=$request->header('id');
+        $user_id=Auth::user()->id;
         $user = User::findOrFail($user_id);
 
         // Validate input

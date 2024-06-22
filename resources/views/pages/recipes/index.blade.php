@@ -18,6 +18,7 @@
     </div>
 </form>
 
+
 <!-- Recipe List -->
 <div class="row">
     @forelse ($recipes as $recipe)

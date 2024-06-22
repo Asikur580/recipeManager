@@ -6,15 +6,15 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="hero-section bg-light text-dark text-center py-5" style="background-image: url('https://source.unsplash.com/1600x900/?food'); background-size: cover; background-position: center;">
+<div class="hero-section bg-light text-dark text-center py-5" style="background-image: url('{{ asset("images/image1.jpg") }}'); background-size: cover; background-position: center;">
     <div class="container py-5">
-        <h1 class="display-4 font-weight-bold">Welcome to Recipe Manager</h1>
-        <p class="lead mb-4">Discover and share your favorite recipes with our community.</p>
+        <h1 class="display-4 font-weight-bold text-info">Welcome to Recipe Manager</h1>
+        <p class="lead mb-4 text-info">Discover and share your favorite recipes with our community.</p>
         <a href="{{ route('recipes.index') }}" class="btn btn-primary btn-lg">Explore Recipes</a>
     </div>
 </div>
 
-<!-- Featured Recipes Section --> 
+<!-- Featured Recipes Section -->
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Featured Recipes</h2>

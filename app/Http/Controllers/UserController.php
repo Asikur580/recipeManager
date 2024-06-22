@@ -49,21 +49,26 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
+    
+
         // Retrieve the user by their email
-        $user = User::where('email', $credentials['email'])->first();
+       // $user = User::where('email', $credentials['email'])->first();
 
         // Check if the user exists and the password matches
-        if ($user && Hash::check($credentials['password'], $user->password)) {
+        // if ($user && Hash::check($credentials['password'], $user->password)) {
            
-            // User Login-> JWT Token Issue
-            $token = JWTToken::CreateToken($request->input('email'), $user->id);
-            return redirect()->intended('recipes')->with('success', 'Login successful.')->cookie('token', $token, time() + 60 * 24 * 30);
+        //     // User Login-> JWT Token Issue
+        //     $token = JWTToken::CreateToken($request->input('email'), $user->id);
+        //     return redirect()->intended('recipes')->with('success', 'Login successful.')->cookie('token', $token, time() + 60 * 24 * 30);
 
 
-            // Redirect to intended page or user dashboard
-            //return redirect()->intended('/dashboard')->with('success', 'Login successful.');
+        //     // Redirect to intended page or user dashboard
+        //     //return redirect()->intended('/dashboard')->with('success', 'Login successful.');
+        // }
+        if (Auth::attempt($credentials)) {
+            
+            return redirect()->intended('recipes');
         }
-
         // Authentication failed, redirect back with error
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -73,21 +78,7 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        return redirect('/login')->cookie('token','',-1);
-
-        // Check if the user is logged in
-       // if ($request->session()->has('user')) {
-            // Clear the user session data
-           // $request->session()->forget('user');
-
-            // Regenerate session token
-           // $request->session()->regenerate();
-
-            // Redirect to the login page or any other appropriate page
-           // return redirect('/login')->with('success', 'Logout successful.');
-       // }
-
-        // If the user is not logged in, redirect them to the login page
-       // return redirect('/login');
+        Auth::logout();
+        return redirect()->route('login.form');
     }
 }
